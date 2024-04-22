@@ -1,4 +1,8 @@
-# Svelte + Vite
+# Startype Odyssey
+This project is inspired by the game in [this link](https://zty.pe/).
+It is a simple game where you can move a starship and shoot the asteroids. The game is written in Svelte and Vite. The game is not finished yet. I will add more features to the game.
+
+![image](https://github.com/cihat/startype-odyssey/assets/57585087/f57798c5-03c9-4a4a-8752-deac0e557c36)
 
 This template should help get you started developing with Svelte in Vite.
 
