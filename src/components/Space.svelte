@@ -29,13 +29,17 @@
     game.isSoundPlaying = !game.isSoundPlaying
   }
 
-  onDestroy(() => game && game.removeEventListener('keyup', game.fire))
+  const handleSpeedRange = (e) => {
+    game.speed = Number(e.target.value)
+  }
+
   onDestroy(() => game && game.removeEventListener('keydown', game.fire))
 </script>
 
 <div class="controller">
   <p>Exist Enemy Ship: {game?.enemyWordShips.length}</p>
-  <input type="range" max="2" min="0.1" value={game?.speed} step="0.1" />
+  <label for="speedRange">Speed Range: </label>
+  <input id="speedRange" type="range" max="2" min="0.1" value={game?.speed || 0} on:change={handleSpeedRange} step="0.1" />
   <button on:click={handleSound}>{game?.isSoundPlaying ? 'Sound 🔊' : 'Sound'}</button>
   <textarea value={game?.input || ''} />
 </div>
