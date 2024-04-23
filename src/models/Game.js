@@ -3,20 +3,6 @@ import EnemyWordShip from "./EnemyWordShip";
 import { soundManager } from "../lib/sound";
 import solarisSoundTrack from '../assets/sound/Solaris-Soundtrack.ogg';
 
-const levels = [
-  { speed: 1, numberOfEnemies: 10 },
-  { speed: 2, numberOfEnemies: 20 },
-  { speed: 3, numberOfEnemies: 30 },
-  { speed: 4, numberOfEnemies: 40 },
-  { speed: 5, numberOfEnemies: 50 },
-  { speed: 6, numberOfEnemies: 60 },
-  { speed: 7, numberOfEnemies: 70 },
-  { speed: 8, numberOfEnemies: 80 },
-  { speed: 9, numberOfEnemies: 90 },
-  { speed: 10, numberOfEnemies: 100 },
-  { speed: 11, numberOfEnemies: 110 },
-]
-
 export default class Game extends EventTarget {
   enemyWordShips = []
   spaceShip = null
@@ -36,6 +22,12 @@ export default class Game extends EventTarget {
     window.addEventListener('keydown', (event) => this.fire(event))
   }
 
+  setNumberOfEnemies(number) {
+    this.numberOfEnemies = number
+    this.enemyWordShips = new EnemyWordShip().generate(this.numberOfEnemies)
+    this.emitStateChange()
+  }
+
   draw() {
     this.spaceShip.draw(this.context)
     this.enemyWordShips.forEach(ship => ship.draw(this.context, { speed: this.speed }))
@@ -44,6 +36,7 @@ export default class Game extends EventTarget {
   animate() {
     this.context.clearRect(0, 0, this.context.canvas.width, this.context.canvas.height)
     this.draw()
+
     requestAnimationFrame(() => this.animate())
   }
 

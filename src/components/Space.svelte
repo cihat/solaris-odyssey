@@ -32,6 +32,9 @@
   const handleSpeedRange = (e) => {
     game.speed = Number(e.target.value)
   }
+  const handleEnemiesRange = (e) => {
+    game.setNumberOfEnemies(Number(e.target.value))
+  }
 
   onDestroy(() => game && game.removeEventListener('keydown', game.fire))
 </script>
@@ -40,6 +43,8 @@
   <p>Exist Enemy Ship: {game?.enemyWordShips.length}</p>
   <label for="speedRange">Speed Range: </label>
   <input id="speedRange" type="range" max="2" min="0.1" value={game?.speed || 0} on:change={handleSpeedRange} step="0.1" />
+  <label for="speedRange">Enemies Range: </label>
+  <input id="speedRange" type="range" max="100" min="10" value={game?.numberOfEnemies || 10} on:change={handleEnemiesRange} step="1" />
   <button on:click={handleSound}>{game?.isSoundPlaying ? 'Sound 🔊' : 'Sound'}</button>
   <textarea value={game?.input || ''} />
 </div>
