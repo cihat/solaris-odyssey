@@ -19,8 +19,6 @@ export default class Game extends EventTarget {
     this.context = context
 
     window.addEventListener('keydown', (event) => this.fire(event))
-
-    this.playSound()
   }
 
   draw() {
