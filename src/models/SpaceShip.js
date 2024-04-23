@@ -41,37 +41,16 @@ export default class SpaceShip {
     ctx.fillRect(this.ship.x + 25, this.ship.y + 10, 10, 5); // Right wing
   }
 
-  fire(ctx, event) {
+  fire() {
     // Set bullet position to the top of the spaceship
     this.bullet.x = this.ship.x + (this.ship.width - this.bullet.width) / 2;
     this.bullet.y = this.ship.y - this.bullet.height;
     const bullet = new Bullet(this.bullet.x, this.bullet.y, this.bullet.width, this.bullet.height);
-    bullet.draw(ctx);
-
-    const { key } = event;
-    const { x, y, width, height } = this.ship;
+    bullet.draw(this.context);
 
     const laserSound = new Audio(laserSoundPath);
     laserSound.volume = 0.3;
     laserSound.play();
-
-    this.input += key;
-
-    this.wordShips.filter((w) => {
-      this.wordShips.forEach((w, i) => {
-        if (w.word === this.input) {
-          this.wordShips.splice(i, 1);
-          this.input = "";
-        }
-      })
-    });
-
-    console.log('wordShips', this.wordShips);
-
-
-    if (key == 'Enter' || key == 'Backspace' || key == 'Delete') {
-      this.input = ""
-    }
   }
 
   getExistingWordsLength() {

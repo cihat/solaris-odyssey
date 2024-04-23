@@ -1,58 +1,28 @@
 <script>
-  import WordShip from '../models/WordShip'
-  import SpaceShip from '../models/SpaceShip'
+  import Game from '../models/Game'
   import { onDestroy, onMount } from 'svelte'
 
   export let width = 600
   export let height = 900
 
   let canvas
-  let context
-
-  let enemyWordShips = []
-  let spaceShip
-  let speed
-  let input = ''
-
-  const startGame = () => {
-    function animate() {
-      context.clearRect(0, 0, width, height)
-
-      enemyWordShips.forEach((wordShip) => {
-        wordShip.draw(context)
-        wordShip.update(context)
-      })
-
-      spaceShip.draw(context)
-
-      requestAnimationFrame(animate)
-    }
-
-    animate()
-  }
+  let game = null
 
   onMount(() => {
-    context = canvas.getContext('2d')
-    enemyWordShips = new WordShip(speed).generate(10)
-    spaceShip = new SpaceShip(context, enemyWordShips)
-
-    startGame()
+    game = new Game(canvas.getContext('2d'))
+    game.animate()
+    game.addEventListener('stateChange', () => (game = game))
   })
 
-  window.addEventListener('keypress', (event) => {
-    input += event.key
-    spaceShip.fire(context, event)
-  })
+  $: console.log('game', game)
 
-  onDestroy(() => {
-    window.removeEventListener('keydown', spaceShip.fire)
-  })
+  onDestroy(() => game && game.removeEventListener('keypress', game.fire))
 </script>
 
 <div class="controller">
-  <textarea bind:value={input} />
-  <input type="range" max="2" min="0.1" bind:value={speed} step="0.1" />
-  <p>Exist Enemy Ship: {enemyWordShips.lenght}</p>
+  <p>Exist Enemy Ship: {game?.enemyWordShips.length}</p>
+  <textarea value={game?.input || ''} />
+  <input type="range" max="2" min="0.1" value={game?.speed} step="0.1" />
 </div>
 <canvas class="space" bind:this={canvas} {width} {height} />
 
@@ -63,8 +33,7 @@
     margin: auto;
     border: 1px solid black;
     border-radius: 10px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    background-image: url('../assets/space-bg.jpg');
+    background-image: url('../assets/new-space-bg.avif');
   }
 
   .controller {
