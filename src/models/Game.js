@@ -18,7 +18,7 @@ export default class Game extends EventTarget {
     this.spaceShip = new SpaceShip(context)
     this.context = context
 
-    window.addEventListener('keyup', (event) => this.fire(event))
+    window.addEventListener('keydown', (event) => this.fire(event))
 
     this.playSound()
   }

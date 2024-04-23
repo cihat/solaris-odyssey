@@ -30,6 +30,7 @@
   }
 
   onDestroy(() => game && game.removeEventListener('keyup', game.fire))
+  onDestroy(() => game && game.removeEventListener('keydown', game.fire))
 </script>
 
 <div class="controller">
