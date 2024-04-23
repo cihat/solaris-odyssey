@@ -8,8 +8,7 @@
   export let height = 900
 
   let canvas
-  let game = null
-  let isPlaying = false
+  let game
 
   onMount(() => {
     game = new Game(canvas.getContext('2d'))
@@ -21,12 +20,13 @@
   $: console.log('game', game)
 
   const handleSound = () => {
-    if (isPlaying) {
+    if (game.isSoundPlaying) {
       soundManager({ sound: solarisSoundTrack, status: 'stop' })
     } else {
       soundManager({ sound: solarisSoundTrack, volume: 0.3, status: 'play' })
     }
-    isPlaying = !isPlaying
+
+    game.isSoundPlaying = !game.isSoundPlaying
   }
 
   onDestroy(() => game && game.removeEventListener('keyup', game.fire))
@@ -35,7 +35,7 @@
 <div class="controller">
   <p>Exist Enemy Ship: {game?.enemyWordShips.length}</p>
   <input type="range" max="2" min="0.1" value={game?.speed} step="0.1" />
-  <button on:click={handleSound}>{isPlaying ? 'Sound 🔊' : 'Sound'}</button>
+  <button on:click={handleSound}>{game?.isSoundPlaying ? 'Sound 🔊' : 'Sound'}</button>
   <textarea value={game?.input || ''} />
 </div>
 <canvas class="space" bind:this={canvas} {width} {height} />
@@ -57,16 +57,10 @@
     align-items: center;
   }
 
-  .wrapper {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin-bottom: 10px;
-  }
-
   textarea {
     text-align: center;
     max-width: 600px;
     width: 100%;
+    margin-bottom: 6px;
   }
 </style>
