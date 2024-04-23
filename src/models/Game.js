@@ -1,5 +1,7 @@
 import SpaceShip from "./SpaceShip";
 import EnemyWordShip from "./EnemyWordShip";
+import { soundManager } from "../lib/sound";
+import solarisSoundTrack from '../assets/sound/Solaris-Soundtrack.ogg';
 
 export default class Game extends EventTarget {
   enemyWordShips = []
@@ -8,6 +10,7 @@ export default class Game extends EventTarget {
   context
   input = ""
   onStateChange = new Event('stateChange')
+  isSoundPlaying = true
 
   constructor(context) {
     super()
@@ -16,6 +19,8 @@ export default class Game extends EventTarget {
     this.context = context
 
     window.addEventListener('keypress', (event) => this.fire(event))
+
+    this.playSound()
   }
 
   draw() {
@@ -55,6 +60,15 @@ export default class Game extends EventTarget {
 
   clearInput() {
     this.input = ""
+  }
+
+  playSound() {
+    soundManager({
+      sound: solarisSoundTrack,
+      loop: true,
+      volume: 0.3,
+      status: this.isSoundPlaying ? 'play' : 'pause',
+    })
   }
 
   emitStateChange() {
