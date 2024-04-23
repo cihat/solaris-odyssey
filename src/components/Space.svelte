@@ -14,6 +14,7 @@
   onMount(() => {
     game = new Game(canvas.getContext('2d'))
     game.animate()
+
     game.addEventListener('stateChange', () => (game = game))
   })
 
@@ -28,7 +29,7 @@
     isPlaying = !isPlaying
   }
 
-  onDestroy(() => game && game.removeEventListener('keypress', game.fire))
+  onDestroy(() => game && game.removeEventListener('keyup', game.fire))
 </script>
 
 <div class="controller">
