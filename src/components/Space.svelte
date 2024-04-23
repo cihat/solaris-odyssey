@@ -44,8 +44,7 @@
 <style>
   .space {
     position: relative;
-    display: block;
-    margin: auto;
+    display: flex;
     border: 1px solid black;
     border-radius: 10px;
     background-image: url('../assets/new-space-bg.avif');
@@ -53,9 +52,18 @@
 
   .controller {
     display: flex;
+    width: 600px;
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    padding: 2rem;
+    border: 1px solid black;
+    border-radius: 10px;
+    background-color: white;
+  }
+
+  .controller > * {
+    margin-bottom: 12px;
   }
 
   textarea {
