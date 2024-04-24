@@ -6,6 +6,20 @@ It is a simple game where you can move a starship and shoot the asteroids. The g
 
 This template should help get you started developing with Svelte in Vite.
 
+## TO-DO
+1. Create Bullet Component with animations, sounds and collision and enemies detection.
+2. Update EnemyShips and Ship views
+   - Add 3 type of enemy ships with different speed and health. Some enemies will can create a new enemy ship until they are destroyed.
+3. Add damage to the enemy ship with sound, animation and updating the health bar
+4. Add level system
+5. Game Settings View
+    -  Add a score board
+    - Add a game over screen
+    - Add a start screen
+    -  Add a pause screen
+    -  Add a settings screen
+6. Add multiple users to the game
+
 ## Recommended IDE Setup
 
 [VS Code](https://code.visualstudio.com/) + [Svelte](https://marketplace.visualstudio.com/items?itemName=svelte.svelte-vscode).
