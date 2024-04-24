@@ -12,9 +12,9 @@
 
   onMount(() => {
     game = new Game(canvas.getContext('2d'))
-    game.animate()
-
     game.addEventListener('stateChange', () => (game = game))
+
+    return () => game.removeEventListener('stateChange', () => (game = game))
   })
 
   $: console.log('game', game)
