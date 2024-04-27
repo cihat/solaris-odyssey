@@ -1,11 +1,11 @@
 import { getWord } from "../data/words"
 import { generateRandomCoordinates } from "../lib/random"
 
-export default class WordShip {
+export default class EnemyWordShip {
   styles = {
-    color: 'black',
+    color: 'white',
     fillStyle: 'white',
-    font: '20px Arial',
+    font: '18px Arial',
     textAlign: 'center',
     textBaseline: 'middle',
     radius: 50,
@@ -17,48 +17,49 @@ export default class WordShip {
 
   constructor() {
     this.word = getWord({ level: 2 })
+
     const { x, y } = generateRandomCoordinates()
     this.coords.x = x
     this.coords.y = y
   }
 
   generate(count) {
-    const ships = Array.from({ length: count }, () => new WordShip());
-    return ships;
+    const ships = Array.from({ length: count }, () => new EnemyWordShip())
+    return ships
   }
 
-  draw(ctx, { speed }) {
-    const itemWidth = this.word.length * 10;
-    const itemHeight = this.word.length * 10;
+  draw(context, { speed }) {
+    const itemWidth = this.word.length * 10
+    const itemHeight = this.word.length * 10
 
     // Draw the black background for the item
-    ctx.fillRect(this.coords.x, this.coords.y, itemWidth, itemHeight);
+    context.fillRect(this.coords.x, this.coords.y, itemWidth, itemHeight)
 
     // Draw the circle
-    ctx.beginPath();
-    ctx.arc(this.coords.x + itemWidth / 2, this.coords.y + itemHeight / 2, this.styles.radius, 0, 2 * Math.PI, false);
-    ctx.fillStyle = 'green';
-    ctx.fill();
-    ctx.lineWidth = 5;
-    ctx.strokeStyle = '#003300';
-    ctx.stroke();
+    context.beginPath()
+    context.arc(this.coords.x + itemWidth / 2, this.coords.y + itemHeight / 2, this.styles.radius, 0, 2 * Math.PI, false)
+    context.fillStyle = 'green'
+    context.fill()
+    context.lineWidth = 5
+    context.strokeStyle = '#003300'
+    context.stroke()
 
     // Set the text styles
-    ctx.fillStyle = this.styles.color;
-    ctx.font = this.styles.font;
-    ctx.textAlign = 'center'; // Center the text horizontally
-    ctx.textBaseline = 'middle'; // Center the text vertically
+    context.fillStyle = this.styles.color
+    context.font = this.styles.font
+    context.textAlign = this.styles.textAlign
+    context.textBaseline = this.styles.textBaseline
 
     // Calculate the center position for the text
-    const centerX = this.coords.x + itemWidth / 2;
-    const centerY = this.coords.y + itemHeight / 2;
+    const centerX = this.coords.x + itemWidth / 2
+    const centerY = this.coords.y + itemHeight / 2
 
     // Draw the text centered within the item
-    ctx.fillText(this.word, centerX, centerY);
-    this.coords.y += speed;
+    context.fillText(this.word, centerX, centerY)
+    this.coords.y += speed
 
     // Reset position when it reaches the bottom of the canvas
-    if (this.coords.y > ctx.canvas.height) {
+    if (this.coords.y > context.canvas.height) {
       const { x, y } = generateRandomCoordinates()
       this.coords.x = x
       this.coords.y = y
