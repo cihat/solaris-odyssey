@@ -41,10 +41,22 @@
 
 <div class="controller">
   <p>Exist Enemy Ship: {game?.enemyWordShips.length}</p>
-  <label for="speedRange">Speed Range: </label>
-  <input id="speedRange" type="range" max="2" min="0.1" value={game?.speed || 0} on:change={handleSpeedRange} step="0.1" />
-  <label for="speedRange">Enemies Range: </label>
-  <input id="speedRange" type="range" max="100" min="10" value={game?.numberOfEnemies || 10} on:change={handleEnemiesRange} step="1" />
+  <div>
+    <label for="widthRange">Canvas Width: </label>
+    <input id="widthRange" type="range" max="1200" min="600" bind:value={width} step="1" />
+  </div>
+  <div>
+    <label for="heightRange">Canvas Height: </label>
+    <input id="heightRange" type="range" max="1200" min="600" bind:value={height} step="1" />
+  </div>
+  <div>
+    <label for="speedRange">Speed Range: </label>
+    <input id="speedRange" type="range" max="2" min="0.1" value={game?.speed || 0} on:change={handleSpeedRange} step="0.1" />
+  </div>
+  <div>
+    <label for="speedRange">Enemies Range: </label>
+    <input id="speedRange" type="range" max="100" min="10" value={game?.numberOfEnemies || 10} on:change={handleEnemiesRange} step="1" />
+  </div>
   <button on:click={handleSound}>{game?.isSoundPlaying ? 'Sound 🔊' : 'Sound'}</button>
   <textarea value={game?.input || ''} />
 </div>
