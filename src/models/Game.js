@@ -21,7 +21,7 @@ export default class Game extends EventTarget {
 
     this.animate()
 
-    window.addEventListener('keydown', (event) => this.fire(event))
+    window.addEventListener('keyup', (event) => this.fire(event))
   }
 
   setNumberOfEnemies(number) {
@@ -43,27 +43,7 @@ export default class Game extends EventTarget {
   }
 
   fire(event) {
-    const { key } = event
-    this.spaceShip.fire()
-    this.input += key
-
-    this.enemyWordShips.forEach((w, i) => {
-      if (w.word === this.input) {
-        this.enemyWordShips.splice(i, 1)
-        this.clearInput()
-      }
-    })
-
-    if (
-      key === 'Enter' ||
-      key === 'Delete' ||
-      key === ' ' ||
-      key === 'Escape'
-    ) {
-      this.clearInput()
-    }
-
-    this.emitStateChange()
+    keyboardListener(event, this)
   }
 
   clearInput() {
