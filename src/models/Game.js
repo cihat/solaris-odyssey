@@ -15,6 +15,7 @@ export default class Game extends EventTarget {
   isSoundPlaying = true
   bullets = []
   targetLocked = false
+  score = 0
 
   constructor(context) {
     super()

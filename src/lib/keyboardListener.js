@@ -18,6 +18,7 @@ export default function keyboardListener(event, game) {
   game.enemyWordShips.forEach((w, i) => {
     if (w.word === game.input) {
       game.enemyWordShips.splice(i, 1)
+      game.score += 1
       game.clearInput()
     }
   })

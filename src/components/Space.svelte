@@ -18,6 +18,9 @@
   })
 
   $: console.log('game', game)
+  $: if (game?.enemyWordShips.length === 0) {
+    game.setNumberOfEnemies(game.numberOfEnemies)
+  }
 
   const handleSound = () => {
     if (game.isSoundPlaying) {
@@ -40,6 +43,7 @@
 </script>
 
 <div class="controller">
+  <h1>Score: {game?.score}</h1>
   <p>Exist Enemy Ship: {game?.enemyWordShips.length}</p>
   <div>
     <label for="widthRange">Canvas Width: </label>
