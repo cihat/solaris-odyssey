@@ -49,7 +49,7 @@ export default class SpaceShip {
     bullet.draw(this.context);
 
     const laserSound = new Audio(laserSoundPath);
-    laserSound.volume = 0.2;
+    laserSound.volume = 0.1;
     laserSound.play();
   }
 
