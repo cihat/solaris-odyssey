@@ -2,6 +2,7 @@ import SpaceShip from "./SpaceShip"
 import EnemyWordShip from "./EnemyWordShip"
 import { soundManager } from "../lib/sound"
 import solarisSoundTrack from '../assets/sound/Solaris-Soundtrack.ogg'
+import explosionSound from '../assets/sound/explosion-small.ogg'
 import keyboardListener from "../lib/keyboardListener"
 
 export default class Game extends EventTarget {
@@ -110,17 +111,18 @@ export default class Game extends EventTarget {
 
   clearAllBullets() {
     this.bullets = []
+    this.playSound(explosionSound, { loop: false, volume: 0.3 })
   }
 
   clearInput() {
     this.input = ""
   }
 
-  playSound() {
+  playSound(sound = solarisSoundTrack, config = { loop: true, volume: 0.3 }) {
     soundManager({
-      sound: solarisSoundTrack,
-      loop: true,
-      volume: 0.3,
+      sound,
+      loop: config.loop,
+      volume: config.volume,
       status: this.isSoundPlaying ? 'play' : 'pause',
     })
   }
