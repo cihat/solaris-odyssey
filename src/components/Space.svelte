@@ -36,7 +36,7 @@
     game.setNumberOfEnemies(Number(e.target.value))
   }
 
-  onDestroy(() => game && game.removeEventListener('keydown', game.fire))
+  onDestroy(() => game && game.removeEventListener('keyup', game.fire))
 </script>
 
 <div class="controller">
