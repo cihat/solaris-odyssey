@@ -1,7 +1,8 @@
-import SpaceShip from "./SpaceShip";
-import EnemyWordShip from "./EnemyWordShip";
-import { soundManager } from "../lib/sound";
-import solarisSoundTrack from '../assets/sound/Solaris-Soundtrack.ogg';
+import SpaceShip from "./SpaceShip"
+import EnemyWordShip from "./EnemyWordShip"
+import { soundManager } from "../lib/sound"
+import solarisSoundTrack from '../assets/sound/Solaris-Soundtrack.ogg'
+import keyboardListener from "../lib/keyboardListener"
 
 export default class Game extends EventTarget {
   enemyWordShips = []
