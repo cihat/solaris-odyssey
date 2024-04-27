@@ -67,8 +67,6 @@ export default class Game extends EventTarget {
     for (let i = 0; i < input.length; i++) {
       if (input[i] === word[i])
         score += 1
-      else
-        this.bullets.pop()
     }
 
     return score
@@ -84,8 +82,7 @@ export default class Game extends EventTarget {
       if (score > highestScore) {
         highestScore = score
         mostMatchedEnemy = ship
-      } else
-        this.bullets.pop()
+      }
     })
     return mostMatchedEnemy
   }
@@ -110,6 +107,11 @@ export default class Game extends EventTarget {
       this.bullets.push(bullet)
     }
   }
+
+  clearAllBullets() {
+    this.bullets = []
+  }
+
   clearInput() {
     this.input = ""
   }
