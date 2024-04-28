@@ -1,38 +1,51 @@
-import { dimensions } from '../store';
+import { dimensions, countOfEnemies } from '../store'
+// @ts-ignore
+import { Random } from "random-js";
+const random = new Random(); // uses the nativeMath engine
 
-const itemWidth = 100; // Adjust according to your item's width
-const itemHeight = 100; // Adjust according to your item's height
-const gap = 200; // Adjust the gap between items
+const itemWidth = 100
+const itemHeight = 100
+const gap = 100
 
-// This place will be refactored later
-let existingCoordinates = [];
+let existingCoordinates = []
+let originY = 0
 
-export function generateRandomCoordinates(currentEnemyCount) {
-  let canvasWidth = 600, canvasHeight = 900
+export function generateRandomCoordinates() {
+  let canvasWidth = 600, canvasHeight = 900, countOfItems = 5
+  let randomX, randomY
 
   dimensions.subscribe(value => {
-    canvasWidth = value.width;
-    canvasHeight = value.height;
-  });
+    canvasWidth = value.width
+    canvasHeight = value.height
 
-  const maxX = canvasWidth - itemWidth - gap;
-  const maxY = canvasHeight - itemHeight - gap;
+    existingCoordinates = []
+  })
+  countOfEnemies.subscribe(value => countOfItems = value)
 
-  const randomX = Math.random() * maxX + itemHeight;
-  const randomY = Math.random() * maxY - canvasHeight / 1.5;
+  do {
+    randomX = random.integer(0, (canvasWidth - itemWidth))
+    randomY = -random.integer(0, (itemHeight + itemHeight * countOfItems))
+  } while (existingCoordinates.some(coord => {
+    return (
+      randomX < coord.x + itemWidth + gap &&
+      randomX + itemWidth + gap > coord.x &&
+      randomY < coord.y + itemHeight + gap &&
+      randomY + itemHeight + gap > coord.y
+    )
+  }))
 
-  // if (checkCoordinates(existingCoordinates, { x: randomX, y: randomY }))
-  //   return generateRandomCoordinates(currentEnemyCount);
+  existingCoordinates.push({ x: randomX, y: randomY })
 
-  // existingCoordinates.push({ x: randomX, y: randomY });
-  // if (existingCoordinates.length === currentEnemyCount)
-  //   existingCoordinates = [];
+  originY += -random.integer(countOfItems, (itemHeight * (countOfItems + gap) / 2))
 
-  return { x: randomX, y: randomY };
+  if (originY >= canvasHeight) {
+    originY = -(originY - canvasHeight)
+  }
+
+  return { x: randomX, y: randomY }
 }
 
-// function checkCoordinates(existingCoordinates, { x, y }) {
-//   return existingCoordinates.some(coord => {
-//     return x > coord.x && x < coord.x + itemWidth + gap && y > coord.y && y < coord.y + itemHeight + gap;
-//   });
-// }
+
+function getRandomArbitrary(min, max) {
+  return Math.random() * (max - min) + min;
+}
