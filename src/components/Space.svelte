@@ -7,13 +7,13 @@
 
   let canvas
   let game
-  let textarea
+  let textareaRef
 
   onMount(() => {
     game = new Game(canvas.getContext('2d'))
     game.addEventListener('stateChange', () => (game = game))
 
-    textarea.focus()
+    textareaRef.focus()
   })
 
   $: if (game?.enemyWordShips.length === 0) {
@@ -64,7 +64,8 @@
       <input id="speedRange" type="range" max="100" min="10" value={game?.numberOfEnemies || 10} on:change={handleEnemiesRange} step="1" />
     </div>
     <button on:click={handleSound}>{game?.isSoundPlaying ? 'Sound 🔊' : 'Sound'}</button>
-    <textarea value={game?.input || ''} bind:this={textarea} />
+    <!-- svelte-ignore a11y-autofocus -->
+    <textarea value={game?.input || ''} bind:this={textareaRef} autofocus />
   </div>
 
   <canvas class="space" bind:this={canvas} width={$dimensions.width} height={$dimensions.height} />
