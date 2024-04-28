@@ -82,8 +82,12 @@
     width: 100vw;
     height: 100vh;
   }
+
   .space {
-    background-image: url('../assets/images/space.avif');
+    @media (max-width: 768px) {
+      width: 100vw;
+      height: 100vh;
+    }
   }
 
   .controller {
