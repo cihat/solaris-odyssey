@@ -3,14 +3,17 @@
   import Game from '../entities/Game'
   import { onDestroy, onMount } from 'svelte'
   import solarisSoundTrack from '../assets/sound/Solaris-Soundtrack.ogg'
-  import { dimensions } from '../store'
+  import { dimensions, countOfEnemies } from '../store'
 
   let canvas
   let game
+  let textarea
 
   onMount(() => {
     game = new Game(canvas.getContext('2d'))
     game.addEventListener('stateChange', () => (game = game))
+
+    textarea.focus()
   })
 
   $: if (game?.enemyWordShips.length === 0) {
@@ -31,7 +34,9 @@
     game.speed = Number(e.target.value)
   }
   const handleEnemiesRange = (e) => {
-    game.setNumberOfEnemies(Number(e.target.value))
+    const count = Number(e.target.value)
+    game.setNumberOfEnemies(count)
+    $countOfEnemies = count
   }
 
   onDestroy(() => game && game.removeEventListener('keyup', game.fire))
@@ -52,34 +57,33 @@
     </div>
     <div>
       <label for="speedRange">Speed Range: </label>
-      <input id="speedRange" type="range" max="5" min="0.1" value={game?.speed || 0} on:change={handleSpeedRange} step="0.1" />
+      <input id="speedRange" type="range" max="20" min="0.1" value={game?.speed || 0} on:change={handleSpeedRange} step="0.1" />
     </div>
     <div>
       <label for="speedRange">Enemies Range: </label>
       <input id="speedRange" type="range" max="100" min="10" value={game?.numberOfEnemies || 10} on:change={handleEnemiesRange} step="1" />
     </div>
     <button on:click={handleSound}>{game?.isSoundPlaying ? 'Sound 🔊' : 'Sound'}</button>
-    <textarea value={game?.input || ''} />
+    <textarea value={game?.input || ''} bind:this={textarea} />
   </div>
 
   <canvas class="space" bind:this={canvas} width={$dimensions.width} height={$dimensions.height} />
 </div>
 
 <style>
+  :global(html, body) {
+    background-image: url('../assets/images/space.avif');
+  }
+
   .container {
     display: flex;
     justify-content: center;
     align-items: center;
     width: 100vw;
     height: 100vh;
-    background-color: #f0f0f0;
   }
   .space {
-    position: relative;
-    display: flex;
-    border: 1px solid black;
-    border-radius: 10px;
-    background-image: url('../assets/new-space-bg.avif');
+    background-image: url('../assets/images/space.avif');
   }
 
   .controller {
@@ -95,6 +99,10 @@
     border: 1px solid black;
     border-radius: 10px;
     background-color: white;
+
+    @media (max-width: 768px) {
+      display: none;
+    }
   }
 
   .controller > * {
