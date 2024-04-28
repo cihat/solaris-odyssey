@@ -16,7 +16,7 @@ export default class EnemyWordShip {
   }
 
   constructor() {
-    this.word = getWord({ level: 2 })
+    this.word = getWord({ level: '2-1' })
 
     const { x, y } = generateRandomCoordinates()
     this.coords.x = x
