@@ -13,13 +13,10 @@
   onMount(() => {
     game = new Game(canvas.getContext('2d'))
     game.addEventListener('stateChange', () => (game = game))
-
-    return () => game.removeEventListener('stateChange', () => (game = game))
   })
 
-  $: console.log('game', game)
   $: if (game?.enemyWordShips.length === 0) {
-    game.setNumberOfEnemies(game.numberOfEnemies)
+    game.levelUp()
   }
 
   const handleSound = () => {
@@ -45,6 +42,7 @@
 <div class="container">
   <div class="controller">
     <h1>Score: {game?.score}</h1>
+    <h2>Level: {game?.level}</h2>
     <p>Exist Enemy Ship: {game?.enemyWordShips.length}</p>
     <div>
       <label for="widthRange">Canvas Width: </label>

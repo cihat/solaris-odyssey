@@ -17,6 +17,7 @@ export default class Game extends EventTarget {
   bullets = []
   targetLocked = false
   score = 0
+  level = 1
 
   constructor(context) {
     super()
@@ -27,6 +28,14 @@ export default class Game extends EventTarget {
     this.animate()
 
     window.addEventListener('keyup', (event) => this.fire(event))
+  }
+
+  levelUp() {
+    this.numberOfEnemies += 5
+    this.speed += 0.1
+    this.level += 1
+
+    this.enemyWordShips = this.setNumberOfEnemies(this.numberOfEnemies)
   }
 
   setNumberOfEnemies(number) {
@@ -111,7 +120,7 @@ export default class Game extends EventTarget {
 
   clearAllBullets() {
     this.bullets = []
-    playSound(explosionSound, 0.3)
+    this.isSoundPlaying && playSound(explosionSound, 0.3)
   }
 
   clearInput() {
