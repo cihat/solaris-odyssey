@@ -3,9 +3,7 @@
   import Game from '../entities/Game'
   import { onDestroy, onMount } from 'svelte'
   import solarisSoundTrack from '../assets/sound/Solaris-Soundtrack.ogg'
-
-  export let width = 600
-  export let height = 900
+  import { dimensions } from '../store'
 
   let canvas
   let game
@@ -46,15 +44,15 @@
     <p>Exist Enemy Ship: {game?.enemyWordShips.length}</p>
     <div>
       <label for="widthRange">Canvas Width: </label>
-      <input id="widthRange" type="range" max="900" min="600" bind:value={width} step="1" />
+      <input id="widthRange" type="range" max="900" min="600" bind:value={$dimensions.width} step="1" />
     </div>
     <div>
       <label for="heightRange">Canvas Height: </label>
-      <input id="heightRange" type="range" max="1000" min="600" bind:value={height} step="1" />
+      <input id="heightRange" type="range" max="1000" min="600" bind:value={$dimensions.height} step="1" />
     </div>
     <div>
       <label for="speedRange">Speed Range: </label>
-      <input id="speedRange" type="range" max="2" min="0.1" value={game?.speed || 0} on:change={handleSpeedRange} step="0.1" />
+      <input id="speedRange" type="range" max="5" min="0.1" value={game?.speed || 0} on:change={handleSpeedRange} step="0.1" />
     </div>
     <div>
       <label for="speedRange">Enemies Range: </label>
@@ -64,7 +62,7 @@
     <textarea value={game?.input || ''} />
   </div>
 
-  <canvas class="space" bind:this={canvas} {width} {height} />
+  <canvas class="space" bind:this={canvas} width={$dimensions.width} height={$dimensions.height} />
 </div>
 
 <style>
