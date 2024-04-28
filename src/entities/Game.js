@@ -8,12 +8,12 @@ import keyboardListener from "../lib/keyboardListener"
 export default class Game extends EventTarget {
   enemyWordShips = []
   spaceShip = null
-  speed = 0.35
+  speed = 0.4
   numberOfEnemies = 5
   context
   input = ""
   onStateChange = new Event('stateChange')
-  isSoundPlaying = true
+  isSoundPlaying = false
   bullets = []
   targetLocked = false
   score = 0
@@ -62,11 +62,10 @@ export default class Game extends EventTarget {
   }
 
   updateBullets() {
-    // Update the position of each bullet
     this.bullets.forEach(bullet => {
       bullet.update()
+      // Remove bullets that are out of bounds
       if (bullet.y < 0 || bullet.x < 0 || bullet.x > this.context.canvas.width || bullet.y > this.context.canvas.height) {
-        // Remove bullets that are out of bounds
         this.bullets.splice(this.bullets.indexOf(bullet), 1)
       }
     })
