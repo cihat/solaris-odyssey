@@ -40,20 +40,21 @@ export default class Game extends EventTarget {
 
   setNumberOfEnemies(number) {
     this.numberOfEnemies = number
-    this.enemyWordShips = new EnemyWordShip().generate(this.numberOfEnemies)
+    this.enemyWordShips = EnemyWordShip.generate(this.numberOfEnemies)
     this.emitStateChange()
 
     return this.enemyWordShips
   }
 
   draw() {
+    this.context.clearRect(0, 0, this.context.canvas.width, this.context.canvas.height)
+
     this.spaceShip.draw(this.context)
     this.enemyWordShips.forEach(ship => ship.draw(this.context, { speed: this.speed }))
     this.bullets.forEach(bullet => bullet.draw(this.context))
   }
 
   animate() {
-    this.context.clearRect(0, 0, this.context.canvas.width, this.context.canvas.height)
     this.draw()
     this.updateBullets()
 

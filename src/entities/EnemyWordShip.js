@@ -23,8 +23,8 @@ export default class EnemyWordShip {
     this.coords.y = y
   }
 
-  generate(count) {
-    const ships = Array.from({ length: count }, () => new EnemyWordShip())
+  static generate(count) {
+    const ships = Array.from({ length: count }, () => new EnemyWordShip(count))
     return ships
   }
 
