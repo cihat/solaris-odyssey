@@ -1,6 +1,6 @@
 <script>
   import { soundManager } from '../lib/sound'
-  import Game from '../models/Game'
+  import Game from '../entities/Game'
   import { onDestroy, onMount } from 'svelte'
   import solarisSoundTrack from '../assets/sound/Solaris-Soundtrack.ogg'
 
