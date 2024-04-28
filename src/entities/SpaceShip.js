@@ -1,4 +1,5 @@
 import laserSoundPath from '../assets/sound/plasma.ogg'
+import { playSound } from '../lib/sound'
 import Bullet from './Bullet'
 
 export default class SpaceShip {
@@ -48,9 +49,7 @@ export default class SpaceShip {
     const bullet = new Bullet(this.bullet.x, this.bullet.y, this.bullet.width, this.bullet.height)
     bullet.draw(this.context)
 
-    const laserSound = new Audio(laserSoundPath)
-    laserSound.volume = 0.1
-    laserSound.play()
+    playSound(laserSoundPath, 0.1)
   }
 
   createBullet() {

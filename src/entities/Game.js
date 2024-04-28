@@ -1,6 +1,6 @@
 import SpaceShip from "./SpaceShip"
 import EnemyWordShip from "./EnemyWordShip"
-import { soundManager } from "../lib/sound"
+import { playSound, soundManager } from "../lib/sound"
 import solarisSoundTrack from '../assets/sound/Solaris-Soundtrack.ogg'
 import explosionSound from '../assets/sound/explosion-small.ogg'
 import keyboardListener from "../lib/keyboardListener"
@@ -111,7 +111,7 @@ export default class Game extends EventTarget {
 
   clearAllBullets() {
     this.bullets = []
-    this.playSound(explosionSound, { loop: false, volume: 0.3 })
+    playSound(explosionSound, 0.3)
   }
 
   clearInput() {

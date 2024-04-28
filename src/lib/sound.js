@@ -20,3 +20,9 @@ export const soundManager = ({ sound = solarisSoundTrack, loop = false, volume =
     gameSound.currentTime = 0;
   }
 };
+
+export function playSound(sound, volume = 0.3) {
+  const _sound = new Audio(sound)
+  _sound.volume = volume
+  _sound.play()
+}
