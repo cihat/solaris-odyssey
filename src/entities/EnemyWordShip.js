@@ -15,10 +15,10 @@ export default class EnemyWordShip {
     y: 0,
   }
 
-  constructor() {
+  constructor(currentEnemyCount) {
     this.word = getWord({ level: '2-1' })
 
-    const { x, y } = generateRandomCoordinates()
+    const { x, y } = generateRandomCoordinates(currentEnemyCount)
     this.coords.x = x
     this.coords.y = y
   }
@@ -29,40 +29,66 @@ export default class EnemyWordShip {
   }
 
   draw(context, { speed }) {
-    const itemWidth = this.word.length * 10
-    const itemHeight = this.word.length * 10
+    const itemWidth = this.word.length * 10;
+    const itemHeight = this.word.length * 10;
 
-    // Draw the black background for the item
-    context.fillRect(this.coords.x, this.coords.y, itemWidth, itemHeight)
+    const spaceshipColor = '#2c3e50'; // Dark gray
+    const windowColor = '#e74c3c'; // Light gray
+    const exhaustColor = '#e74c3c'; // Red
 
-    // Draw the circle
-    context.beginPath()
-    context.arc(this.coords.x + itemWidth / 2, this.coords.y + itemHeight / 2, this.styles.radius, 0, 2 * Math.PI, false)
-    context.fillStyle = 'green'
-    context.fill()
-    context.lineWidth = 5
-    context.strokeStyle = '#003300'
-    context.stroke()
+    // Draw the spaceship body
+    context.beginPath();
+    context.moveTo(this.coords.x + itemWidth / 2, this.coords.y);
+    context.lineTo(this.coords.x, this.coords.y + itemHeight);
+    context.lineTo(this.coords.x + itemWidth, this.coords.y + itemHeight);
+    context.closePath();
+    context.fillStyle = spaceshipColor;
+    context.fill();
+
+    // Draw the windows
+    context.beginPath();
+    context.arc(this.coords.x + itemWidth / 2, this.coords.y + itemHeight / 2, 10, 0, Math.PI * 2);
+    context.arc(this.coords.x + itemWidth / 2 - 20, this.coords.y + itemHeight / 2 + 20, 5, 0, Math.PI * 2);
+    context.arc(this.coords.x + itemWidth / 2 + 20, this.coords.y + itemHeight / 2 + 20, 5, 0, Math.PI * 2);
+    context.fillStyle = windowColor;
+    context.fill();
+
+    // Draw the exhaust
+    context.beginPath();
+    context.moveTo(this.coords.x + itemWidth / 2 - 10, this.coords.y + itemHeight);
+    context.lineTo(this.coords.x + itemWidth / 2, this.coords.y + itemHeight + 20);
+    context.lineTo(this.coords.x + itemWidth / 2 + 10, this.coords.y + itemHeight);
+    context.closePath();
+    context.fillStyle = exhaustColor;
+    context.fill();
 
     // Set the text styles
-    context.fillStyle = this.styles.color
-    context.font = this.styles.font
-    context.textAlign = this.styles.textAlign
-    context.textBaseline = this.styles.textBaseline
+    context.fillStyle = '#fff'; // White text
+    context.font = this.styles.font;
+    context.textAlign = this.styles.textAlign;
+    context.textBaseline = this.styles.textBaseline;
 
     // Calculate the center position for the text
-    const centerX = this.coords.x + itemWidth / 2
-    const centerY = this.coords.y + itemHeight / 2
+    const centerX = this.coords.x + itemWidth / 2;
+    const centerY = this.coords.y + itemHeight / 2;
+
+
+    // Set the text styles
+    context.fillStyle = '#fff'; // White text
+    context.font = 'bold ' + this.styles.font; // Adding 'bold' to the font style
+    context.textAlign = this.styles.textAlign;
+    context.textBaseline = this.styles.textBaseline;
 
     // Draw the text centered within the item
-    context.fillText(this.word, centerX, centerY)
-    this.coords.y += speed
+    context.fillText(this.word, centerX, centerY);
+    this.coords.y += speed;
 
     // Reset position when it reaches the bottom of the canvas
     if (this.coords.y > context.canvas.height) {
-      const { x, y } = generateRandomCoordinates()
-      this.coords.x = x
-      this.coords.y = y
+      const { x, y } = generateRandomCoordinates();
+      this.coords.x = x;
+      this.coords.y = y;
     }
   }
+
 }
