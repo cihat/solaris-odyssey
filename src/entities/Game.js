@@ -8,8 +8,8 @@ import keyboardListener from "../lib/keyboardListener"
 export default class Game extends EventTarget {
   enemyWordShips = []
   spaceShip = null
-  speed = 0.5
-  numberOfEnemies = 10
+  speed = 0.35
+  numberOfEnemies = 5
   context
   input = ""
   onStateChange = new Event('stateChange')
