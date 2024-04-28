@@ -42,31 +42,42 @@
   onDestroy(() => game && game.removeEventListener('keyup', game.fire))
 </script>
 
-<div class="controller">
-  <h1>Score: {game?.score}</h1>
-  <p>Exist Enemy Ship: {game?.enemyWordShips.length}</p>
-  <div>
-    <label for="widthRange">Canvas Width: </label>
-    <input id="widthRange" type="range" max="1200" min="600" bind:value={width} step="1" />
+<div class="container">
+  <div class="controller">
+    <h1>Score: {game?.score}</h1>
+    <p>Exist Enemy Ship: {game?.enemyWordShips.length}</p>
+    <div>
+      <label for="widthRange">Canvas Width: </label>
+      <input id="widthRange" type="range" max="900" min="600" bind:value={width} step="1" />
+    </div>
+    <div>
+      <label for="heightRange">Canvas Height: </label>
+      <input id="heightRange" type="range" max="1000" min="600" bind:value={height} step="1" />
+    </div>
+    <div>
+      <label for="speedRange">Speed Range: </label>
+      <input id="speedRange" type="range" max="2" min="0.1" value={game?.speed || 0} on:change={handleSpeedRange} step="0.1" />
+    </div>
+    <div>
+      <label for="speedRange">Enemies Range: </label>
+      <input id="speedRange" type="range" max="100" min="10" value={game?.numberOfEnemies || 10} on:change={handleEnemiesRange} step="1" />
+    </div>
+    <button on:click={handleSound}>{game?.isSoundPlaying ? 'Sound 🔊' : 'Sound'}</button>
+    <textarea value={game?.input || ''} />
   </div>
-  <div>
-    <label for="heightRange">Canvas Height: </label>
-    <input id="heightRange" type="range" max="1200" min="600" bind:value={height} step="1" />
-  </div>
-  <div>
-    <label for="speedRange">Speed Range: </label>
-    <input id="speedRange" type="range" max="2" min="0.1" value={game?.speed || 0} on:change={handleSpeedRange} step="0.1" />
-  </div>
-  <div>
-    <label for="speedRange">Enemies Range: </label>
-    <input id="speedRange" type="range" max="100" min="10" value={game?.numberOfEnemies || 10} on:change={handleEnemiesRange} step="1" />
-  </div>
-  <button on:click={handleSound}>{game?.isSoundPlaying ? 'Sound 🔊' : 'Sound'}</button>
-  <textarea value={game?.input || ''} />
+
+  <canvas class="space" bind:this={canvas} {width} {height} />
 </div>
-<canvas class="space" bind:this={canvas} {width} {height} />
 
 <style>
+  .container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100vw;
+    height: 100vh;
+    background-color: #f0f0f0;
+  }
   .space {
     position: relative;
     display: flex;
@@ -76,8 +87,11 @@
   }
 
   .controller {
+    position: absolute;
+    left: 0;
+    top: 0;
     display: flex;
-    width: 600px;
+    width: 400px;
     flex-direction: column;
     justify-content: center;
     align-items: center;
