@@ -120,7 +120,7 @@ export default class Game extends EventTarget {
 
   clearAllBullets() {
     this.bullets = []
-    this.isSoundPlaying && playSound(explosionSound, 0.3)
+    this.isSoundPlaying && playSound(explosionSound, 0.08)
   }
 
   clearInput() {
