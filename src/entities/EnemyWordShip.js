@@ -15,16 +15,16 @@ export default class EnemyWordShip {
     y: 0,
   }
 
-  constructor() {
+  constructor(count) {
     this.word = getWord({ level: '2-1' })
 
-    const { x, y } = generateRandomCoordinates()
+    const { x, y } = generateRandomCoordinates(count)
     this.coords.x = x
     this.coords.y = y
   }
 
   static generate(count) {
-    const ships = Array.from({ length: count }, (_, i) => new EnemyWordShip())
+    const ships = Array.from({ length: count }, (_, i) => new EnemyWordShip(count))
     return ships
   }
 

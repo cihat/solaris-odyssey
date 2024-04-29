@@ -3,7 +3,7 @@
   import Game from '../entities/Game'
   import { onDestroy, onMount } from 'svelte'
   import solarisSoundTrack from '../assets/sound/Solaris-Soundtrack.ogg'
-  import { dimensions, countOfEnemies } from '../store'
+  import { dimensions, countOfEnemies } from '../store/game'
 
   let canvas
   let game

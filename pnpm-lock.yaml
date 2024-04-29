@@ -1,10 +1,5 @@
 lockfileVersion: '6.0'
 
-dependencies:
-  random-js:
-    specifier: ^2.1.0
-    version: 2.1.0
-
 devDependencies:
   '@sveltejs/vite-plugin-svelte':
     specifier: ^3.0.2
@@ -589,10 +584,6 @@ packages:
       picocolors: 1.0.0
       source-map-js: 1.2.0
     dev: true
-
-  /random-js@2.1.0:
-    resolution: {integrity: sha512-CRUyWmnzmZBA7RZSVGq0xMqmgCyPPxbiKNLFA5ud7KenojVX2s7Gv+V7eB52beKTPGxWRnVZ7D/tCIgYJJ8vNQ==}
-    dev: false
 
   /rollup@4.16.1:
     resolution: {integrity: sha512-5CaD3MPDlPKfhqzRvWXK96G6ELJfPZNb3LHiZxTHgDdC6jvwfGz2E8nY+9g1ONk4ttHsK1WaFP19Js4PSr1E3g==}
