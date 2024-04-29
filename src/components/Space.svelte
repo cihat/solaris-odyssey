@@ -58,7 +58,7 @@
     </div>
     <div>
       <label for="speedRange">Enemies Range: </label>
-      <input id="speedRange" type="range" max="100" min="10" value={game?.numberOfEnemies || 10} on:change={handleEnemiesRange} step="1" />
+      <input id="speedRange" type="range" max="50" min="10" value={game?.numberOfEnemies || 10} on:change={handleEnemiesRange} step="1" />
     </div>
     <button on:click={handleSound}>{game?.isSoundPlaying ? 'Sound 🔊' : 'Sound'}</button>
     <textarea value={game?.input || ''} />

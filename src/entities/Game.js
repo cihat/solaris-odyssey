@@ -22,7 +22,7 @@ export default class Game extends EventTarget {
   constructor(context) {
     super()
     this.context = context
-    this.enemyWordShips = this.setNumberOfEnemies(this.numberOfEnemies)
+    this.enemyWordShips = this.setNumberOfEnemies()
     this.spaceShip = new SpaceShip(context)
 
     this.animate()
@@ -31,18 +31,19 @@ export default class Game extends EventTarget {
   }
 
   levelUp() {
-    this.numberOfEnemies += 5
-    this.speed += 0.1
     this.level += 1
+    this.numberOfEnemies += 1
+    this.speed += 0.05
 
-    this.enemyWordShips = this.setNumberOfEnemies(this.numberOfEnemies)
+    this.enemyWordShips = this.setNumberOfEnemies()
   }
 
-  setNumberOfEnemies(number) {
-    this.numberOfEnemies = number
-    this.enemyWordShips = EnemyWordShip.generate(this.numberOfEnemies)
+  setNumberOfEnemies(shipCount = this.numberOfEnemies) {
+    this.numberOfEnemies = shipCount
+
     this.emitStateChange()
 
+    this.enemyWordShips = EnemyWordShip.generate(this.numberOfEnemies)
     return this.enemyWordShips
   }
 
