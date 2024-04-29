@@ -32,7 +32,6 @@ export function generateRandomCoordinates(countOfEnemies = 5) {
 
 
   existingCoordinates.push({ x: randomX, y: randomY })
-  console.log('existingCoordinates', existingCoordinates);
 
   originY += getRandomArbitrary(countOfEnemies, (itemHeight * (2 ^ (countOfEnemies + gap) * 0.5)))
 

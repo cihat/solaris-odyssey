@@ -28,8 +28,8 @@ export default class Bullet {
       const distance = Math.sqrt(dx * dx + dy * dy)
 
       // Move the bullet towards the target
-      this.x += dx / distance * 5 // Adjust the speed as needed
-      this.y += dy / distance * 5 // Adjust the speed as needed
+      this.x += dx / distance * 25 // Adjust the speed as needed
+      this.y += dy / distance * 25 // Adjust the speed as needed
     } else {
       // If there's no target, move the bullet upward
       this.y -= 5
